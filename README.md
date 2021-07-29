@@ -8,7 +8,10 @@ Each lesson will consist of:
 * a short video (~10 mins)
 * an exercise
 
+A lot of the examples are taken from the following books:
+* Verilog by Example: A Concise Introduction for FPGA Design, by Blaine Readler
+
 # Lessons
 
 1. [Setting up the environment](lessons/0-setup) 
-2. [Modules](lessons/1-modules) 
+2. [Simple In n Out](lessons/1-simple_in_n_out) 
