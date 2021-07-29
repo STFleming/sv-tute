@@ -10,4 +10,5 @@ Each lesson will consist of:
 
 # Lessons
 
-1. [Setting up the environment](lessons/setup) 
+1. [Setting up the environment](lessons/0-setup) 
+2. [Modules](lessons/1-modules) 
