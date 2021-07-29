@@ -8,6 +8,7 @@
 * Understanding of combinatorial logic assignments.
 
 ## Video
+[![lesson video](https://img.youtube.com/vi/fnoMnokP9mI/0.jpg)](https://www.youtube.com/watch?v=fnoMnokP9mI)
 
 ## Exercise
 
