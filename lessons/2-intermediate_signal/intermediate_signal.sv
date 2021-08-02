@@ -1,6 +1,5 @@
 // intermediate_signals  (Readler -- VBE -- page 8)
 //
-// Implements a 2 input MUX from first principles.
 //
 // author: stf
 
@@ -16,12 +15,11 @@ module intermediate_signal (
 );
 // -------------------------------
 
-logic internal_sig;
+logic intermediate_signal; 
 
-assign internal_sig = in_1 & in_2;
-
-assign out_1 = internal_sig & in_3;
-assign out_2 = internal_sig | in_3;
+assign intermediate_signal = in_1 & in_2;
+assign out_1 = intermediate_signal & in_3;
+assign out_2 = intermediate_signal | in_3;
 
 endmodule
 
