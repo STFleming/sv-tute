@@ -9,7 +9,7 @@
 
 ## Video
 <p align="center">
-	<a href="http://www.youtube.com/watch?feature=player_embedded&v=ZZRAt1WMUgA
+	<a href="http://www.youtube.com/watch?feature=player_embedded&v=Jb-gnzetZts
 	" target="_blank"><img src="misc/video_thumb.png" 
 	alt="Lesson Video" width="510" height="360" border="10" /></a>
 </p>
