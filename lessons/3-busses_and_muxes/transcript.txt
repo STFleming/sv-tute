@@ -1,0 +1,42 @@
+In this video we are going to introduce two new topics: bus signals, and multiplexors. 
+
+A bus signal is a signal that has multiple bits. All the signals that we have looked at until now have been a single wire that can either have a value HIGH or LOW. However, we can associate multiple wires with a signal, this is called a bus. 
+
+In this example we can see that the output port A is a wire while output port B is a bus, with 4 wires associated with it. When declaring a bus we put the length in the square brackets after it. 
+Here we are starting that b is a bus with wires 3 downto 0. 
+
+Essentially this means that output port b is made up of the following wires.
+
+We are going to use these bus signals to build a multiplexor. 
+
+A multiplexor is an incredibly common hardware unit that has multiple inputs and a single output. 
+
+It also has another special input called the select. The select input is used to determine which of the inputs is passed through to the output. 
+
+In this case we have 2 inputs, a and b, on the left. Each of these is an 8 bit number. We also have q our output which is also 8 bits. Since we have only two inputs we can have a select input that is just a single wire.
+When select is low, the output q is asigned the value a. When select is high, the output q is assigned b. 
+
+Let's code this up in System Verilog.
+
+In our current example directory we have a module, busmux, which we will use to describe the circuit we just saw. 
+
+Let's start with our inputs, a and b. In the ports list we write, input logic, then we specify the size of our bus, in our case we want an 8-bit input so we can write open square bracket 7 colon 0 close square bracket, then we can write the name a. We now have an 8-bit bus input a. Let's do the same thing for b. 
+
+Now we need our select signal.
+
+Finally we need our output q.
+
+Now we have our ports specified, let's add some logic to do the muxing. 
+
+We want to assign q the value or either a or b based on the select input. If the select input is low, then we assign q the value a otherwise we assign it the value b. We can do this with a conditional assignemnt. 
+
+So let's write, assign q equals, select question mark b colon a. What this is saying is that if select is high, then we assign q b otherwise we assign it a.
+And that's it. 
+
+Let's simulate this, by typing make in our exercise directory, and examining it by opening up the waveform like we did in the other lessons.
+
+We can see that our inputs are being changed by the testbench, and that our select input is also being toggled. Let's make this a bit easier to read by telling GTKWave how to interpret the bus signals. Right click on a bus and go down to radix and then decimal to display the bus as a decimal number.
+
+We can see that the logic is correct, depending on the value of select, a different input is routed to the output. Great!
+
+It's also worth pointing out that we can also expand the bus to see the individual wires. Anyhow, that concludes this lesson where we learnt about bus signals and multiplexors, don't forget to give the exercise a try.
