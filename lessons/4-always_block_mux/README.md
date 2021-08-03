@@ -1,22 +1,28 @@
 <p align="center">
-  <img width="500" src="misc/circuit.png" />
+  <img height="250" src="misc/circuit.png" />
 </p>
 
 ## Learning outcomes
-* Introduction to multi-bit bus signals.
-* Introduction to the concept of a multiplexer.
-* Introduction to a combinatorial conditional assignment.
+* Introduce combinatorial procedural blocks ``always_comb``. (video 1)
+* Explain how to define a literal value in system verilog. (video 2)
+* Explain how to use if statements and case statements in a procedural block. (video 3)
 
-## Video
+## Video 1
 <p align="center">
-	<a href="http://www.youtube.com/watch?feature=player_embedded&v=ljmm6S6k2Aw
-	" target="_blank"><img src="misc/video_thumb.png" 
+	<a href="http://www.youtube.com/watch?feature=player_embedded&v=xdUcyrSBPWk
+	" target="_blank"><img src="misc/video1_thumb.png" 
 	alt="Lesson Video" width="510" height="360" border="10" /></a>
 </p>
 
-## Exercise
+## Video 1: exercise
 
-* Make the same mux as this circuit but out of logic gates instead of the conditional assignment. 
+*  
 
+## Video 2
 
+## Video 2: exercise
+
+## Video 3
+
+## Video 3: exercise
 
