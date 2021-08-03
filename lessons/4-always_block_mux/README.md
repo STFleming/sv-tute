@@ -19,6 +19,11 @@
 *  
 
 ## Video 2
+<p align="center">
+	<a href="http://www.youtube.com/watch?feature=player_embedded&v=3n8KvPvERuo
+	" target="_blank"><img src="misc/video2_thumb.png" 
+	alt="Lesson Video" width="510" height="360" border="10" /></a>
+</p>
 
 ## Video 2: exercise
 
