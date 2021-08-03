@@ -17,5 +17,6 @@ A lot of the examples are taken from the following books:
 
 0. [Setting up the environment](lessons/0-setup) 
 1. [Simple In-N-Out](lessons/1-simple_in_n_out) 
-2. [Intermediate Signal](lessons/2-intermediate_signal) 
-3. [Bus Signals and Muxs](lessons/3-busses_and_muxes) 
+2. [Intermediate signal](lessons/2-intermediate_signal) 
+3. [Bus Signals and muxs](lessons/3-busses_and_muxes) 
+3. [Procedural always blocks](lessons/4-always_block_mux) 
