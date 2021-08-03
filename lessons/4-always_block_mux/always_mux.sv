@@ -20,7 +20,15 @@ module always_mux (
 // -------------------------------
 
 always_comb begin
-	q = {8'd0, 8'd100};
+	case (select)
+		3'd0: q = a;
+		3'd1: q = b;
+		3'd2: q = c; 
+		3'd3: q = d; 
+		3'd4: q = e; 
+		3'd5: q = f; 
+		3'd6: q = g; 
+	endcase
 end
 
 endmodule

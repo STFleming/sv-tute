@@ -28,6 +28,11 @@
 ## Video 2: exercise
 
 ## Video 3
+<p align="center">
+	<a href="http://www.youtube.com/watch?feature=player_embedded&v=KYga2d_1dnA
+	" target="_blank"><img src="misc/video3_thumb.png" 
+	alt="Lesson Video" width="510" height="360" border="10" /></a>
+</p>
 
 ## Video 3: exercise
 
