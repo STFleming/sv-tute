@@ -1,0 +1,63 @@
+In this video we are going to learn a bit more about how to manipulate Verilog bus signals, and design this circuit. 
+
+Verilog bus signals can be seen as a vector of wires. 
+We can index these wires individually using square brackets.
+
+We can also select a range of these wires.
+
+Let's consider this bus a[3:0] this is a bus that has four wires a[0], a[1], a[2], a[3].
+Let's say we have a 2 wire bus t[1:0] that we want to assign a[0] and a[1] to.
+
+One way we could do this is to use concatenation.
+assign t = {a[1], a[0]}; 
+
+However, another more convienient way is to select a range of the bus a, like follows.
+assign t = a[1:0]; 
+
+Okay, great. Let's look at how we can build our bus breakout circuit.
+
+One way that we can do this is by assigning each bit of q individually.
+So we can write an always block.
+Then 
+q[0] = a[0];
+q[1] = a[1];
+
+Now for 
+q[2] we have the AND of a[2] and b[0], so we write
+q[2] = a[2] & b[0];
+
+As for q[3] we have the AND of a[3] and b[1], so we write
+q[3] = a[3] & b[1]
+
+The for 
+q[4] = b[2];
+and 
+q[5] = b[3];
+
+Great! That should work. 
+
+However, it's not very neat specifying each wire individually -- and things will quickly get messy when we big busses.
+
+Another way to do this is with concatenation and slicing ranges of the input busses.
+Let's start at the bottom of the output q as we concatenate signals in Verilog with the most significant wires on the left and the least significant on the right.
+
+We can see that q[5] and q[4] are assigned b[3] and b[2]. 
+So we can write, 
+q = { b[3:2] 
+
+And then a comma for the next part of the concatenation.
+
+q[3] is assigned the AND of b[1] and a[3], so for this bit we can write:
+     b[1] & a[3] 
+
+And then a comma for the next part of the concatenation.
+
+q[2] is assigned the AND of b[0] and a[3], so for this bit we can write:
+	b[0] & a[3]
+
+And then a comma for the next part of the concatenation.
+
+Finally, q[1] and q[0] is assigned a[1] and a[0], so we can write
+	a[1:0]
+And as this is the last part of the concatenation we can close it off with a curly bracket.
+
