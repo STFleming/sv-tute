@@ -16,7 +16,7 @@
 
 ## Video 1: exercise
 
-*  
+* Using an ``always_comb`` block make the output ``q`` be the bitwise OR of inputs ``a``, ``b``, ``c``, and ``d``.   
 
 ## Video 2
 <p align="center">
@@ -27,6 +27,8 @@
 
 ## Video 2: exercise
 
+* Assign the output ``q`` to be ``42`` using a binary literal.
+
 ## Video 3
 <p align="center">
 	<a href="http://www.youtube.com/watch?feature=player_embedded&v=KYga2d_1dnA
@@ -35,4 +37,9 @@
 </p>
 
 ## Video 3: exercise
+<p align="center">
+  <img height="350" src="misc/exercise.png" />
+</p>
+
+* Using a bitwise NOT operation -- create a MUX where all the odd signals are selected an inverted version of the corresponding input is sent to the output, apart from input ``7`` which is always ``42``. See the diagram above.
 
