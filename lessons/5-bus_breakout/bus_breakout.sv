@@ -7,19 +7,20 @@
 // -----------------------------------
 module bus_breakout (
         // Inputs
-        input logic [3:0] in_1,
-        input logic [3:0] in_2,
+        input logic [3:0] a,
+        input logic [3:0] b,
 
         // Outputs
-        output logic [5:0] out_1
+        output logic [5:0] q 
 
 );
 
-assign out_1 = {    in_2[3:2],
-                    (in_1[3] & in_2[1]),
-                    (in_1[2] & in_2[0]),
-                    in_1[1:0]
-                };
+always_comb begin
+	q = { b[3:2],
+	      b[1] & a[3],
+	      b[0] & a[2],
+	      a[1:0] };
+end
 
 endmodule
 // -----------------------------------

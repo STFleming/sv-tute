@@ -19,4 +19,5 @@ A lot of the examples are taken from the following books:
 1. [Simple In-N-Out](lessons/1-simple_in_n_out) 
 2. [Intermediate signal](lessons/2-intermediate_signal) 
 3. [Bus Signals and muxs](lessons/3-busses_and_muxes) 
-3. [Procedural always blocks](lessons/4-always_block_mux) 
+4. [Procedural always blocks](lessons/4-always_block_mux) 
+5. [Bus breakout](lessons/5-bus_breakout) 

@@ -27,15 +27,15 @@ module top_tb(
    bus_breakout bus_breakout_inst(
 
 	// inputs
-        .in_1(tb_in1),
-        .in_2(tb_in2),
+        .a(tb_in1),
+        .b(tb_in2),
 	
 	// outputs
-        .out_1(tb_out1)
+        .q(tb_out1)
    );
 
    always_ff @(posedge clk) begin 
-        $display("tb_out1 = %d", tb_out1);
+        $display("q = %d", tb_out1);
    end
 
    // Print some stuff as an example
