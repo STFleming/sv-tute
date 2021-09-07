@@ -9,18 +9,18 @@ module D_type_flip_flop (
         input logic clk,
         input logic rst,
 
-        input logic in_1,
-        output logic out_1
+        input logic din,
+        output logic dout 
 );
 // -------------------------------
 
 always_ff @(posedge clk) begin
 
-        out_1 <= in_1;
+	dout <= din; // Blocking assignment 
 
-        if (rst) begin
-                out_1 <= 1'b0;
-        end
+	if(rst) begin
+		dout <= 1'b0;
+	end
 end
 
 endmodule

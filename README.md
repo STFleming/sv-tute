@@ -21,3 +21,4 @@ A lot of the examples are taken from the following books:
 3. [Bus Signals and muxs](lessons/3-busses_and_muxes) 
 4. [Procedural always blocks](lessons/4-always_block_mux) 
 5. [Bus breakout](lessons/5-bus_breakout) 
+6. [Sequential Logic and D-Type Flip Flops](lessons/6-D_type_flip_flop) 

@@ -32,12 +32,12 @@ module top_tb(
         .clk(clk),
         .rst(rst),
 
-        .in_1(a_tb),
-        .out_1(out_tb)
+        .din(a_tb),
+        .dout(out_tb)
    );
 
    always_ff @(posedge clk) begin 
-        $display("out_tb = %d", out_tb);
+        $display("dout = %d", out_tb);
    end
 
 
