@@ -17,8 +17,8 @@ void setup() {
 // runs continuously
 void loop() {
 	for(int i=0; i<8; i++) {
-        	regWrite(0xFFFF0004, val++);
-		res = regRead(0xFFFF0004);
+        	regWrite(0xFFFF0000, val++);
+		res = regRead(0xFFFF0000);
 		fprintf(stderr, "res=%u\n", res);
 	}
 	exit();

@@ -22,49 +22,48 @@ module mmio (
 );
 // -------------------------------
 
-logic [31:0] config_reg;
-logic [31:0] input_data_reg;
-logic [31:0] output_data_reg;
-logic [31:0] status_reg;
+logic [31:0] reg1;
+logic [31:0] reg2;
 
-// Write process
+// write logic
 always_ff @(posedge clk) begin
-	if ((addr_in[31:16] == 16'hFFFF) && wr_in) begin
+	if( (addr_in[31:16] == 16'hFFFF) & wr_in ) begin
+		// we are in the right address range and have a wr_in signal
 		case(addr_in[15:0])
-			16'h0000 : config_reg <= data_in; 			
-			16'h0004 : input_data_reg <= data_in;  
-			default: begin
+			16'h0000: reg1 <= data_in;
+			16'h0004: reg2 <= data_in;
+			default:  begin
+				// keep the values
 			end
 		endcase
 	end
 
 	if (rst) begin
-		config_reg <= 32'd0;
-		input_data_reg <= 32'd0;
+		reg1 <= 32'd0;
+		reg2 <= 32'd0;
 	end
 end
 
-// Read Process 
+
+// read logic
 always_ff @(posedge clk) begin
+
 	rd_valid_out <= rd_in;
 
-	if ((addr_in[31:16] == 16'hFFFF) && rd_in) begin
+	if( (addr_in[31:16] == 16'hFFFF) & rd_in ) begin
 		case(addr_in[15:0])
-			16'h0000 : data_out <= config_reg; 			
-			16'h0004 : data_out <= input_data_reg + 32'd100;  
-			16'h0008 : data_out <= output_data_reg;  
-			16'h000C : data_out <= status_reg;  
-			default: data_out <= 32'd0;
+			16'h0000: data_out <= reg1;
+			16'h0004: data_out <= reg2;
+			default: begin 
+				// don't change data_out
+			end
 		endcase
 	end
 
 	if (rst) begin
-		data_out <= 32'd0;	
+		data_out <= 32'd0;
 	end
 end
-
-assign output_data_reg = input_data_reg + 32'd42;
-assign status_reg = config_reg;
 
 endmodule
 // ----- End of MMIO interfacing module -----
