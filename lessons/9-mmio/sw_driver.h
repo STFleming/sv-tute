@@ -11,16 +11,14 @@ uint32_t res;
 
 // runs once on startup
 void setup() {
-        val = 32;
+        val = 42;
 }
 
 // runs continuously
 void loop() {
-	for(int i=0; i<8; i++) {
-        	regWrite(0xFFFF0000, val++);
-		res = regRead(0xFFFF0000);
-		fprintf(stderr, "res=%u\n", res);
-	}
+        regWrite(0xFFFF0004, val++);
+	res = regRead(0xFFFF0004);
+	fprintf(stderr, "res=%u\n", res);
 	exit();
 }
 

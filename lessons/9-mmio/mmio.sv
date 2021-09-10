@@ -27,18 +27,19 @@ logic [31:0] reg2;
 
 // write logic
 always_ff @(posedge clk) begin
-	if( (addr_in[31:16] == 16'hFFFF) & wr_in ) begin
-		// we are in the right address range and have a wr_in signal
+	if( (addr_in[31:16] == 16'hFFFF) & wr_in) begin
+
 		case(addr_in[15:0])
 			16'h0000: reg1 <= data_in;
 			16'h0004: reg2 <= data_in;
-			default:  begin
-				// keep the values
+			default: begin
+				// dont change the values otherwise
 			end
 		endcase
+	
 	end
 
-	if (rst) begin
+	if(rst) begin
 		reg1 <= 32'd0;
 		reg2 <= 32'd0;
 	end
@@ -50,12 +51,13 @@ always_ff @(posedge clk) begin
 
 	rd_valid_out <= rd_in;
 
-	if( (addr_in[31:16] == 16'hFFFF) & rd_in ) begin
+	if ((addr_in[31:16] == 16'hFFFF) & rd_in) begin
+
 		case(addr_in[15:0])
 			16'h0000: data_out <= reg1;
 			16'h0004: data_out <= reg2;
-			default: begin 
-				// don't change data_out
+			default: begin
+				// keep data_out the same value
 			end
 		endcase
 	end
@@ -63,7 +65,11 @@ always_ff @(posedge clk) begin
 	if (rst) begin
 		data_out <= 32'd0;
 	end
+
 end
+
+
+
 
 endmodule
 // ----- End of MMIO interfacing module -----
