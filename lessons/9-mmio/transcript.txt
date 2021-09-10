@@ -1,0 +1,108 @@
+A common way to interact with hardware is through a memory mapped register.
+This is a hardware register that has a mapped address in the address space of the system. 
+To interact with the hardware, the programmer can use pointers that point to that address, to access individual bits of the hardware register.
+
+In this video we are going to see what that looks like from a hardware perspective, explaining what a possble memory mapped interface might look like.
+We will develop a simple interface in Verilog, and write C code that interacts with our Verilog code in a way that a processor connected to our custom hardware might.
+
+Say we have some 32-bit registers that we want to be accessible from software. 
+To do this we will have to connect to the memory subsystem of the overall system. 
+A typical, simple, interface for this might look like the following.
+
+We have an address input: which will be used to select which register we are reading and writing.
+A Data input data_in: which carries the data that we might want to write into a register.
+A write input signal wr_in: which indicates that the interface wants to perform a write operation.
+A read input interface rd_in: which indicates that we want to read from a particular register.
+A data output, data_out: which carries the data that we are reading from the interface.
+And finally, a read valid signal rd_valid_out: which is high when the output data is valid.
+
+Let's first look at a signal timing diagram for this, to see how these signals read and write to internal registers. 
+As this is a synchrnous circuit, we need a clock and a reset, I have omitted a reset from the timing diagram, but we will have to consider it in the Verilog code.
+
+Let's say we have an internal register reg04, with the address 0x0004, and let's say that we want to write to this register first, then read the value that we just wrote. 
+Initially, the reg04 is in an unknown state, so we have a bunch of X's. 
+To write to the register, what we need to do is: set the address input to the address of the register, in this case 0x04; set the data_in to the data that we want to write,
+let's write 42 in there; and set the write input signal wr_in to high. 
+As this is a synchronous circuit we can see that on the following clock edge the value 42 is saved in our register reg04. 
+Okay great, that is the basics of writing to a register. Now let's consider reading the value out of this register. 
+
+To read the value we again need to set the address input to the register that we want to read, however, this time instead of the write input being high at the same time,
+we need the read input to be high. 
+The memory controller will now wait until the rd_valid data signal is high, indicating that the data at data_out is carring the correct data. 
+
+This is a basic interface, and it resembles the light common light interfaces used by intel and ARM on their devices, such as avalon or AXI. 
+However, be warned that a memory mapped hardware interface might not always look like there, and there can be subtle differences depending on the memory controller you are connecting to. 
+
+Okay, now that we have a good feel for the timing of our interface signals, let's think a bit about the structure of our circuit, and how we can code that up in Verilog.
+
+We shall start with the write interface to the module and then focus on the read interface.
+At the center of our module are the registers that we want to read and write to, let's say that we have two, reg1 and reg2. With addresses 0xFFFF0000 and 0xFFFF0004.
+These are very similar to the registers that we saw in the previous video, however, we need to consider one extra thing, we only want these registers to update their value
+when their address is at the input and we have a wr_in signal. We can think of this as these registers having a write enable input, where the value is only updated when the write
+enable is asserted.
+
+So we can connect the data_in to each of our register inputs, we then want to be able to selectively set the write enable of each of the registers depending on the current address input.
+We can do this with something called a demultiplexer. 
+
+We can think of this as the opposite of a multiplexer. Basically this is a unit that has an input, a select input, and a bunch of outputs. 
+Based at the current value at our select input, we reroute the input signal to one of the outputs.
+
+So we can use that to route our wr_in write signal input to each of the registers based on the current address input.
+Let's describe the write interface in Verilog.
+
+First off, we need to describe the actual registers that we want to read and write in our hardware circuit.
+We can write logic [31:0] reg1; and logic [31:0] reg2; to create two 32 bit registers reg1 and reg2. 
+
+Now, we want to assign a value to these registers. Remember that a register is a clocked sequential circuit element, so we need to use an always_ff block.
+We write always_ff @(posedge clk) begin end in the usual way that we have done in the previous videos.
+Looking at our circuit, we want to assign data in into either of these registers based on the value of the address input and the wr_in signal.
+We can see that for both addresses of our registers the first 16-bits are common, let's create a simple if statement to check if that is true and if the write signal is asserted.
+Okay, for the remaining address bits we want to either write to reg1 if the bottom 16 bits of the address are 0000, and reg2 if the bottom 16 bits of the address are 0004.
+Let's use a case statement to do that.
+case addr_in 15 downto 0 for the bottom 16 bits.
+when these bits are 0000 we want to assign reg1 the value at data_in.
+when these bits are 0004 we want to assign reg2 the value at data_in.
+Great, we are almost done. However, we have one small thing that we are forgetting. We need to initialise these registers when we reset the system.
+if reset reg1 is zero and reg 2 is zero. 
+
+That should hopefully describe the write side of the interface. Now let's look at the logic for reading the registers.
+
+On the read side, instead of a demultiplexer, we need a multiplexer. We have many inputs and one output. 
+The multiplexer will use bits of the address to select which output goes to the registered data_out signal.
+To comply with the protocol we also need to output a read valid signal to say when the data at data_out is valid. 
+As the data_out signal is registered, then it takes one clock cycle for the output data to change acording to the input, so we can just register the rd_in signal to match the delays 
+between the read control signals, and the data signals. 
+
+Now, let's code the read channel up in Verilog.
+
+Again this involves assigning to registers so we use always_ff @(posedge clk). 
+Let's start with the rd_valid signal, that is just a registered version of the rd_in signal, synchronising the rd_valid signal with the data being outputted. 
+So we can just write, rd_valid_out blocking assignment rd_in.
+
+Okay, now onto the read side, which will be quite similar to the write channel.
+We have the same if statement to check the top 16 bits of the address, howwever, this time instead of the wr_in signal we are conditioned on the rd_in signal.
+Then, like before, we have a case statement for handling the bottom 16 bits of the address input. 
+So we can write a case statement, where if we see 0000 then data_out is assign reg1, as if we see 0004 data_out is assigned reg2.
+Rembmer, we registered the data_out signal because this is an always_ff block, so we need to initialise it with a reset condition. 
+
+
+And that should describe our memory-mapped register interface circuit. 
+
+Let's simulate it. We can see in the waveform that we are writing to reg1 the value 42 and then reading it, and the circuit responds correctly. 
+In the project directory, we can actually change the code that is reading and writing to our hardware interface. If we open the file sw_driver.h you will see the code I am referring to. 
+This should look reasonably familiar to you as it is modelled to look like the Arduino sketches that we have been writing in other parts of the course. 
+We have a setup function that is run once, and then a loop function that is called continuously. 
+We also have three function, regWrite, which we can use to write to a register, regRead which we can use to read a value from a register, and exit which we can use to end
+the simulation. 
+In essence what we are doing is modelling both a hardware peripheral on an arduino device, and simulating it, along with the code that is executing on the processor of the
+Arduino device. 
+Let's change the reads and write commands so that instead of reading and writing from reg1 we are doing it to reg2. 
+Our register is mapped at the address 0xFFFF0004, so we can change the address that we are using in the reg read and reg write functions to change the register that we 
+are interacting with.
+
+Let's make and simulate. Great, we can see that we are now interacting with the other register.
+Excellent work. We will use this interface for some of the later videos and questions to interact with and test our hardware.
+See you next time.
+
+
+
