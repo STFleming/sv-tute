@@ -23,3 +23,5 @@ A lot of the examples are taken from the following books:
 5. [Bus breakout](lessons/5-bus_breakout) 
 6. [Sequential Logic and D-Type Flip Flops](lessons/6-D_type_flip_flop) 
 7. [Describing a counter circuit](lessons/7-counter) 
+8. [Write Enable Register](lessons/8-write_enable) 
+9. [A Memory Mapped Interface](lessons/9-mmio) 
