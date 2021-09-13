@@ -18,6 +18,8 @@ module we_reg (
 
 always_ff @(posedge clk) begin
 
+	data_out <= data_out;
+
 	if(wr_in) begin
 		data_out <= data_in;
 	end
@@ -25,7 +27,6 @@ always_ff @(posedge clk) begin
 	if (rst) begin
 		data_out <= 32'd0;
 	end
-
 end
 
 endmodule
